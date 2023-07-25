@@ -1,8 +1,8 @@
-import express from "express";
-import mongoose from "mongoose";
-import { RecipeModel } from "../models/Recipes";
+import express from "express"
+import mongoose from "mongoose"
+import {RecipeModel} from "../models/Recipes.js"
 
-const Router = express.Router();
+const router = express.Router();
+router.get("/")
 
-
-export {router as recipeRoutes}
+export {router as recipeRouter}

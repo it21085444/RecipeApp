@@ -3,14 +3,15 @@ import cors from "cors";
 import mongoose from "mongoose";
 
 import { userRouter } from "./routes/users.js";
-import { recipesRouter } from "./routes/recipes.js";
-import { ingredientsRouter } from "./routes/ingredients.js";
+import { recipeRouter } from "./routes/recipes.js";
+
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-app.use("/auth", UserRouter);
+app.use("/auth", userRouter);
+app.use("/recipes", recipeRouter);
 
 mongoose.connect(
   "mongodb+srv://recipe:recipe@cluster0.d1gsldk.mongodb.net/recipes?retryWrites=true&w=majority"
