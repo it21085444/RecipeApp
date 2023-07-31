@@ -12,7 +12,9 @@ app.use(cors());
 app.use("/auth", userRouter);
 app.use("/recipes", recipesRouter);
 
-mongoose.connect("mongodb+srv://recipe:recipe@cluster0.d1gsldk.mongodb.net/recipes?retryWrites=true&w=majority", {
+mongoose.connect(
+  "// YOUR MONGODB CONNECTION STRING HERE //"
+   {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
