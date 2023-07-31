@@ -1,7 +1,5 @@
 # Recipe App
 
-![Recipe App - MERN Stack]((https://github.com/it21085444/RecipeApp))
-
 The MERN Recipe App is a web application built using the MERN (MongoDB, Express, React, Node.js) stack. It allows users to view, add, edit, and delete recipes. The application is designed to provide a user-friendly experience for managing recipes and discovering new culinary delights.
 
 ## Features
