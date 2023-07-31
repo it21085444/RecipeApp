@@ -1,7 +1,7 @@
-import React, {useState} from "react"
-import axios from "axios"
-import { useCookies } from "react-cookie"
-import { useNavigate } from "react-router-dom"
+import React, { useState } from "react";
+import axios from "axios";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 export const Auth = () => {
   return (
@@ -9,63 +9,106 @@ export const Auth = () => {
       <Login />
       <Register />
     </div>
-  )
-}
+  );
+};
 
 const Login = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+  const [_, setCookies] = useCookies(["access_token"]);
 
-    const [_, setCookies] = useCookies(["access_token"]);
-    const navigate = useNavigate();
-    const onSubmit = async (event) => {
-        event.preventDefault(); // prevent default form submission refresh
-        try {
-            const response = await axios.post("http://localhost:3001/auth/login", {username, password});
-            
-            setCookies("access_token", response.data.token);
-            window.localStorage.setItem("userID", response.data.userID);
-            navigate("/");
-        } catch (err) {
-            console.error(err);
-        }
-    }
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  return <Form username={username} password={password} setUsername={setUsername} setPassword={setPassword} onSubmit={onSubmit} label="Login" />
-}
+  const navigate = useNavigate();
 
-const Register = () => {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const onSubmit = async (event) => {
-    event.preventDefault() // prevent default form submission refresh
     try {
-      await axios.post("http://localhost:3001/auth/register", {username, password})
-      alert("User created successfully")
-    } catch (err) {
-      console.error(err)
+      const result = await axios.post("http://localhost:3001/auth/login", {
+        username,
+        password,
+      });
+
+      setCookies("access_token", result.data.token);
+      window.localStorage.setItem("userID", result.data.userID);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
     }
-  }
+  };
 
-  return <Form username={username} password={password} setUsername={setUsername} setPassword={setPassword} label="Register" onSubmit={onSubmit} />
-}
-
-const Form = ({username, password, setUsername, setPassword, label, onSubmit}) => {
   return (
     <div className="auth-container">
-      <form onSubmit={onSubmit}>
-        <h2> {label}</h2>
+      <form onSubmit={handleSubmit}>
+        <h2>Login</h2>
         <div className="form-group">
           <label htmlFor="username">Username:</label>
-          <input type="text" id="username" value={username} onChange={(event) => setUsername(event.target.value)} />
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          />
         </div>
         <div className="form-group">
           <label htmlFor="password">Password:</label>
-          <input type="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
         </div>
-        <button type="submit">{label}</button>
+        <button type="submit">Login</button>
       </form>
     </div>
-  )
-}
+  );
+};
+
+const Register = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [_, setCookies] = useCookies(["access_token"]);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await axios.post("http://localhost:3001/auth/register", {
+        username,
+        password,
+      });
+      alert("Registration Completed! Now login.");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <div className="auth-container">
+      <form onSubmit={handleSubmit}>
+        <h2>Register</h2>
+        <div className="form-group">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </div>
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  );
+};
