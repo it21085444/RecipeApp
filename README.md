@@ -79,13 +79,8 @@ The app's landing page will display, and you can sign up or log in to start mana
 
 - For production deployment, make sure to set up proper environment variables and security measures.
 
-- The application uses JWT (JSON Web Tokens) for authentication, so ensure the `SECRET_KEY` in the `.env` file is strong and secure.
-
 - If you encounter any issues or have suggestions, feel free to submit an issue on the GitHub repository.
 
-## Contributors
-
-- [Sasindu Fernando](https://github.com/it21085444) - Project Developer
 
 ## License
 
